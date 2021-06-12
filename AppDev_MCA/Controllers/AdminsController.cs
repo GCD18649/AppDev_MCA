@@ -32,7 +32,7 @@ namespace AppDev_MCA.Controllers
             var staffInDb = _context.Users.Where(s => s.Roles.Any(r => r.RoleId == roleid));
             return View(staffInDb);
         }
-        public ActionResult RemoveTrainingStaffAccount()
+        public ActionResult RemoveTrainingStaffAccount(string id)
         {
             var userInDb = _context.Users.SingleOrDefault(s => s.Id == id);
             _context.Users.Remove(userInDb);
