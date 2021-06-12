@@ -34,11 +34,31 @@ namespace AppDev_MCA.Controllers
         }
         public ActionResult RemoveTrainingStaffAccount()
         {
-            return View();
+            var userInDb = _context.Users.SingleOrDefault(s => s.Id == id);
+            _context.Users.Remove(userInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainingStaff");
         }
-        public ActionResult CreateTrainingStaff()
+        public ActionResult CreaAteTrainingStaff()
         {
             return View();
         }
+         public ActionResult CreateTrainingStaff(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = _userManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _userManager.AddToRole(user.Id, "STAFF");
+                    _context.SaveChanges();
+
+                }
+                return RedirectToAction("ListTrainingStaff");
+            }
+            return View(model);
+        }
+
     }
 }
