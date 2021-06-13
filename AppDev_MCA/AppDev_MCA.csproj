@@ -271,11 +271,11 @@
     <Content Include="Views\Admins\CreateTrainerAccount.cshtml" />
     <Content Include="Views\Trainers\Index.cshtml" />
     <Content Include="Views\Trainers\ViewProfile.cshtml" />
+    <Content Include="Views\Trainers\UpdateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categories\" />
-    <Folder Include="Views\Trainers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
