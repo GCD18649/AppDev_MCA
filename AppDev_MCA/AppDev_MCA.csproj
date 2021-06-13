@@ -171,7 +171,9 @@
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TraineesController.cs" />
     <Compile Include="Controllers\TrainersController.cs" />
+    <Compile Include="Controllers\TrainingStaffsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,12 +197,18 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Course.cs" />
+    <Compile Include="Models\GetType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TraineeCourse.cs" />
+    <Compile Include="Models\TraineeUser.cs" />
     <Compile Include="Models\TrainerCourse.cs" />
     <Compile Include="Models\TrainerUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\CourseCategoriesViewModel.cs" />
+    <Compile Include="ViewModel\TraineeUserCoursesViewModel.cs" />
+    <Compile Include="ViewModel\UserCoursesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -265,7 +273,9 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Categories\" />
+    <Folder Include="Views\Trainees\" />
     <Folder Include="Views\Trainers\" />
+    <Folder Include="Views\TrainingStaffs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
