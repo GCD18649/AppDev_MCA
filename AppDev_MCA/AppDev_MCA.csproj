@@ -183,6 +183,14 @@
     <Compile Include="Migrations\202106121007523_CreateCategoriesTable.Designer.cs">
       <DependentUpon>202106121007523_CreateCategoriesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202106130112110_CreateTrainerUsersTable.cs" />
+    <Compile Include="Migrations\202106130112110_CreateTrainerUsersTable.Designer.cs">
+      <DependentUpon>202106130112110_CreateTrainerUsersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202106130113154_CreateTrainerCoursesTable.cs" />
+    <Compile Include="Migrations\202106130113154_CreateTrainerCoursesTable.Designer.cs">
+      <DependentUpon>202106130113154_CreateTrainerCoursesTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -280,6 +288,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202106121007523_CreateCategoriesTable.resx">
       <DependentUpon>202106121007523_CreateCategoriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106130112110_CreateTrainerUsersTable.resx">
+      <DependentUpon>202106130112110_CreateTrainerUsersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202106130113154_CreateTrainerCoursesTable.resx">
+      <DependentUpon>202106130113154_CreateTrainerCoursesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
