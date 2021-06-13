@@ -24,8 +24,11 @@ namespace AppDev_MCA.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
         public DbSet<Course> Courses { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<TrainerUser> TrainerUsers { get;set; }
+        public DbSet<TrainerCourse> TrainerCourses { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
