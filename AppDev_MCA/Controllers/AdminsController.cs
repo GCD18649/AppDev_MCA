@@ -39,11 +39,13 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListTrainingStaff");
         }
+        [HttpGet]
         public ActionResult CreaAteTrainingStaff()
         {
             return View();
         }
-         public ActionResult CreateTrainingStaff(RegisterViewModel model)
+        [HttpPost]
+        public ActionResult CreateTrainingStaff(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +58,66 @@ namespace AppDev_MCA.Controllers
 
                 }
                 return RedirectToAction("ListTrainingStaff");
+            }
+            return View(model);
+        }
+        public ActionResult ListTrainer(string searchString)
+        {
+            var TrainerInDb = _context.TrainerUsers.ToList();
+            if (!searchString.IsNullOrWhiteSpace())
+            {
+                TrainerInDb = _context.TrainerUsers
+                .Where(m => m.FullName.Contains(searchString) || m.Telephone.Contains(searchString) || m.EmailAddress.Contains(searchString))
+                .ToList();
+            }
+            return View(TrainerInDb);
+        }
+        public ActionResult ResetPassword(string id)
+        {
+            var user = _userManager.FindById(id);
+            _userManager.RemovePassword(user.Id);
+            _userManager.AddPassword(user.Id, "12345678");
+            _userManager.Update(user);
+            return RedirectToAction("Index");
+        }
+        public ActionResult RemoveTrainerAccount(string id)
+        {
+            var userInDb = _context.Users.SingleOrDefault(s => s.Id == id);
+            var trainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
+            _context.TrainerUsers.Remove(trainerInDb);
+            _context.Users.Remove(userInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
+        [HttpGet]
+        public ActionResult CreateTrainerAccount()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateTrainerAccount(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = _userManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _userManager.AddToRole(user.Id, "TRAINER");
+                    var trainerUser = new TrainerUser()
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        FullName = model.FullName,
+                        Telephone = model.Telephone,
+                        WorkingPlace = model.WorkingPlace,
+                        type = model.Type,
+                        EmailAddress = user.UserName
+                    };
+                    _context.TrainerUsers.Add(trainerUser);
+                }
+                _context.SaveChanges();
+                return RedirectToAction("ListTrainer");
             }
             return View(model);
         }
