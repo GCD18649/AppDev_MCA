@@ -8,19 +8,23 @@ using System.Web;
 
 namespace AppDev_MCA.Models
 {
-    public partial class TrainerUser
+    public class TraineeUser
     {
         [Key]
         public string Id { get; set; }
         public string UserName { get; set; }
         [DisplayName("Full Name")]
         public string FullName { get; set; }
-        [DisplayName("Type")]
-        public GetType type { get; set; }
-        [DisplayName("Phone Number")]
+        [DisplayName("Age")]
+        public int age { get; set; }
+        [DisplayName("Date Of Birth")]
+        public DateTime DateOfBirth { get; set; }
         public string Telephone { get; set; }
-        [DisplayName("Working Place")]
-        public string WorkingPlace { get; set; }
+        [DisplayName("Programming Language")]
+        public string mainProgrammingLanguage { get; set; }
+        [DisplayName("Toeic Score")]
+        public string ToeicScore { get; set; }
+        public string Department { get; set; }
         [DisplayName("Email Address")]
         public string EmailAddress { get; set; }
         [ForeignKey("Id")]
