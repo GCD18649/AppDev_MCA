@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AppDev_MCA.Models.TrainerUser>
+@{ ViewBag.Title = "ListTrainer"; }
+<h2>List Trainer</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Home", "Index", "Home",
+    null,
+    new { @class = "btn btn-primary" })
+</div>
+@using (Html.BeginForm("ListTrainer", "Admins", "POST"))
+{
+<div class="form-group">
+    <label for="fname">Search by Trainer Name:</label><br>
+    @Html.TextBox("searchString", null, new { @class = "form-control", @width = "500px" })
+</div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" width="500px">Search</button>
+                </div>}
+@Html.ActionLink("Create Trainer Account", "CreateTrainerAccount", "Admins", null, new { @class = "btn btn-primary" })
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Trainer Name</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>@item.FullName</td>
+    <td>
+        @Html.ActionLink("Reset Password", "ResetPassword", "Admins", new { id = item.Id }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Remove", "RemoveTrainerAccount", "Admins", new { id = item.Id }, new { @class = "btn btn-primary" })
+    </td>
+
+</tr>}
+    </tbody>
+</table>

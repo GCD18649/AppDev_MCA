@@ -1,4 +1,5 @@
 ﻿using AppDev_MCA.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -62,7 +63,7 @@ namespace AppDev_MCA.Controllers
             return View(model);
         }
         public ActionResult ListTrainer(string searchString)
-        {
+        {   
             var TrainerInDb = _context.TrainerUsers.ToList();
             if (!searchString.IsNullOrWhiteSpace())
             {
