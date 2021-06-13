@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,13 @@ namespace AppDev_MCA.Models
         public string FullName { get; set; }
         [DisplayName("Type")]
         public GetType type { get; set; }
+        public enum GetType
+        {
+            [Display(Name = "Selecte Type")]
+            Selectetype = 0,
+            Internal = 1,
+            External = 2
+        }
         [DisplayName("Phone Number")]
         public string Telephone { get; set; }
         [DisplayName("Working Place")]

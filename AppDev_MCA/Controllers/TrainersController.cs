@@ -71,5 +71,11 @@ namespace AppDev_MCA.Controllers
             _userManager.Update(TrainerInDb);
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult ViewAssignedCourse()
+        {
+            var CurrentTrainerId = User.Identity.GetUserId();
+            var trainerCourse = _context.TrainerCourses.Where(t => t.TrainerId == CurrentTrainerId).Include(c => c.Course.Category).ToList();
+            return View(trainerCourse);
+        }
     }
 }
