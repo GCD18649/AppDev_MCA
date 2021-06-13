@@ -55,5 +55,21 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(string password)
+        {
+            var CurrentTrainerId = User.Identity.GetUserId();
+            var TrainerInDb = _userManager.FindById(CurrentTrainerId);
+            string newPassword = password;
+            _userManager.RemovePassword(CurrentTrainerId);
+            _userManager.AddPassword(CurrentTrainerId, newPassword);
+            _userManager.Update(TrainerInDb);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
