@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -77,5 +78,6 @@ namespace AppDev_MCA.Controllers
             var trainerCourse = _context.TrainerCourses.Where(t => t.TrainerId == CurrentTrainerId).Include(c => c.Course.Category).ToList();
             return View(trainerCourse);
         }
+
     }
 }
