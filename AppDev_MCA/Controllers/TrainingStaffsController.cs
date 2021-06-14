@@ -160,5 +160,65 @@ namespace AppDev_MCA.Controllers
             };
             return View(viewModel);
         }
+        [HttpPost]
+        public ActionResult EditCourse(CourseCategoriesViewModel course)
+        {
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == course.Courses.Id);
+            courseInDb.Name = course.Courses.Name;
+            courseInDb.Description = course.Courses.Description;
+            courseInDb.CategoryId = course.Courses.CategoryId;
+            _context.SaveChanges();
+            return RedirectToAction("ListCourse");
+        }
+        public ActionResult ListTrainer(string searchString)
+        {
+            var trainerInDb = _context.TrainerUsers.ToList();
+            if (!searchString.IsNullOrWhiteSpace())
+            {
+                trainerInDb = _context.TrainerUsers
+                .Where(m => m.FullName.Contains(searchString) || m.Telephone.Contains(searchString))
+                .ToList();
+            }
+            return View(trainerInDb);
+        }
+        [HttpGet]
+        public ActionResult UpdateProfileTrainer(string id)
+        {
+            var trainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
+            return View(trainerInDb);
+        }
+        [HttpPost]
+        public ActionResult UpdateProfileTrainer(TrainerUser trainer)
+        {
+            var trainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == trainer.Id);
+            {
+                trainerInDb.UserName = trainer.EmailAddress;
+                trainerInDb.FullName = trainer.FullName;
+                trainerInDb.WorkingPlace = trainer.WorkingPlace;
+                trainerInDb.type = trainer.type;
+                trainerInDb.Telephone = trainer.Telephone;
+                trainerInDb.EmailAddress = trainer.EmailAddress;
+            }
+            var userInDb = _context.Users.SingleOrDefault(u => u.Id == trainer.Id);
+            {
+                userInDb.UserName = trainer.EmailAddress;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
+        public ActionResult DetailProfileTrainer(string id)
+        {
+            var trainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
+            return View(trainerInDb);
+        }
+        public ActionResult RemoveTrainer(string id)
+        {
+            var UserInDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var TrainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
+            _context.TrainerUsers.Remove(TrainerInDb);
+            _context.Users.Remove(UserInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
     }
 }
