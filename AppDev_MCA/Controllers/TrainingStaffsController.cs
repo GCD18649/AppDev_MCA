@@ -122,6 +122,43 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListCourse");
         }
+        [HttpGet]
+        public ActionResult CreateCourse()
+        {
+            var viewModel = new CourseCategoriesViewModel()
+            {
+                Categories = _context.Categories.ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult CreateCourse(CourseCategoriesViewModel course)
+        {
+            if (ModelState.IsValid)
+            {
+                var newCourse = new Course()
+                {
+                    Name = course.Courses.Name,
+                    Description = course.Courses.Description,
+                    CategoryId = course.Courses.CategoryId
+                };
+                _context.Courses.Add(newCourse);
+                _context.SaveChanges();
+                return RedirectToAction("ListCourse");
+            }
+            return View(course);
+        }
 
+        [HttpGet]
+        public ActionResult EditCourse(int id)
+        {
+            var courseInDb = _context.Courses.SingleOrDefault(c => c.Id == id);
+            var viewModel = new CourseCategoriesViewModel()
+            {
+                Courses = courseInDb,
+                Categories = _context.Categories.ToList()
+            };
+            return View(viewModel);
+        }
     }
 }
