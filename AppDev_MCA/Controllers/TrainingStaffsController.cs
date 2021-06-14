@@ -211,5 +211,14 @@ namespace AppDev_MCA.Controllers
             var trainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
             return View(trainerInDb);
         }
+        public ActionResult RemoveTrainer(string id)
+        {
+            var UserInDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var TrainerInDb = _context.TrainerUsers.SingleOrDefault(t => t.Id == id);
+            _context.TrainerUsers.Remove(TrainerInDb);
+            _context.Users.Remove(UserInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
     }
 }
