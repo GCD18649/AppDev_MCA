@@ -275,6 +275,15 @@
     <Content Include="Views\Trainers\ViewAssignedCourse.cshtml" />
     <Content Include="Views\TrainingStaffs\Index.cshtml" />
     <Content Include="Views\Trainees\Index.cshtml" />
+    <Content Include="Views\TrainingStaffs\ListCategory.cshtml" />
+    <Content Include="Views\TrainingStaffs\DetailCategory.cshtml" />
+    <Content Include="Views\TrainingStaffs\CreateCategory.cshtml" />
+    <Content Include="Views\TrainingStaffs\EditCategory.cshtml" />
+    <Content Include="Views\TrainingStaffs\ListCourse.cshtml" />
+    <Content Include="Views\TrainingStaffs\DetailCourse.cshtml" />
+    <Content Include="Views\TrainingStaffs\CreateCourse.cshtml" />
+    <Content Include="Views\TrainingStaffs\EditCourse.cshtml" />
+    <Content Include="Views\TrainingStaffs\ListTrainer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

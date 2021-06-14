@@ -220,5 +220,68 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListTrainer");
         }
+        public ActionResult ViewCourseAssigned(string id)
+        {
+            var trainerCourse = _context.TrainerCourses.Where(t => t.TrainerId == id).ToList();
+            return View(trainerCourse);
+        }
+        public ActionResult RemoveCourse(int id)
+        {
+            var trainerCourseInDb = _context.TrainerCourses.SingleOrDefault(c => c.Id == id);
+            _context.TrainerCourses.Remove(trainerCourseInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
+        [HttpGet]
+        public ActionResult AssignCourse(string id)
+        {
+            var UserInDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var viewModel = new UserCoursesViewModel()
+            {
+                User = UserInDb,
+                Courses = _context.Courses.ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult AssignCourse(UserCoursesViewModel trainerCourse)
+        {
+
+            var newTrainerCourse = new TrainerCourse()
+            {
+                TrainerId = trainerCourse.User.Id,
+                CourseId = trainerCourse.TrainerUser.CourseId,
+            };
+            var TrainerCourseInDb = _context.TrainerCourses.Add(newTrainerCourse);
+            var trainerUserObject = _context.TrainerUsers.SingleOrDefault(t => t.Id == TrainerCourseInDb.TrainerId);
+            var CourseObject = _context.Courses.SingleOrDefault(t => t.Id == TrainerCourseInDb.CourseId);
+            TrainerCourseInDb.TrainerName = trainerUserObject.UserName;
+            TrainerCourseInDb.CourseName = CourseObject.Name;
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
+        [HttpGet]
+        public ActionResult ChangeCourse(int id)
+        {
+            var trainerCourseInDb = _context.TrainerCourses.SingleOrDefault(t => t.Id == id);
+            var viewModel = new UserCoursesViewModel()
+            {
+                TrainerUser = trainerCourseInDb,
+                Courses = _context.Courses.ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult ChangeCourse(UserCoursesViewModel trainerCourse)
+        {
+            var trainerCourseInDb = _context.TrainerCourses.SingleOrDefault(t => t.Id == trainerCourse.TrainerUser.Id);
+            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == trainerCourse.TrainerUser.CourseId);
+            trainerCourseInDb.CourseId = trainerCourse.TrainerUser.CourseId;
+            trainerCourseInDb.CourseName = courseInDb.Name;
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainer");
+        }
+     
+
     }
 }
