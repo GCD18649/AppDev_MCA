@@ -292,7 +292,99 @@ namespace AppDev_MCA.Controllers
             }
             return View(traineeInDb);
         }
+        public ActionResult DetailTraineeProfile(string id)
+        {
+            var traineeInDb = _context.TraineeUsers.SingleOrDefault(t => t.Id == id);
+            return View(traineeInDb);
+        }
+        public ActionResult CreateTraineeAccount()
+        {
+            return View();
+        }
+       [HttpPost]
+        public ActionResult CreateTraineeAccount(RegisterViewModel model)
+        {
 
+            if (ModelState.IsValid)
+            {
+                var today = DateTime.Today;
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = _userManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _userManager.AddToRole(user.Id, "TRAINEE");
+                    var traineeUser = new TraineeUser()
+                    {
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        FullName = model.FullName,
+                        DateOfBirth = model.DateOfBirth,
+                        age = today.Year - model.DateOfBirth.Year,
+                        Telephone = model.Telephone,
+                        mainProgrammingLanguage = model.mainProgrammingLangueage,
+                        ToeicScore = model.ToeicSocre,
+                        Department = model.Department,
+                        EmailAddress = user.UserName
+                    };
+                    _context.TraineeUsers.Add(traineeUser);
+                    _context.SaveChanges();
+                    return RedirectToAction("ListTrainee");
+                }
+            }
+            return View(model);
+        }
+        public ActionResult ResetPassword(string id)
+        {
+            var user = _userManager.FindById(id);
+            _userManager.RemovePassword(user.Id);
+            _userManager.AddPassword(user.Id, "12345678");
+            _userManager.Update(user);
+            return RedirectToAction("ManageAccount");
+
+        }
+        public ActionResult RemoveTrainee(string id)
+        {
+            var UserInDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var TraineeInDb = _context.TraineeUsers.SingleOrDefault(t => t.Id == id);
+            _context.TraineeUsers.Remove(TraineeInDb);
+            _context.Users.Remove(UserInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainee"); ;
+        }
+        public ActionResult RemoveCourseTrainee(int id)
+        {
+            var traineeCourseInDb = _context.TraineeCourses.SingleOrDefault(c => c.Id == id);
+            _context.TraineeCourses.Remove(traineeCourseInDb);
+            _context.SaveChanges();
+            return RedirectToAction("ViewCourseAssignedTrainee");
+        }
+        [HttpGet]
+        public ActionResult AssignCourseTrainee(string id)
+        {
+            var UserInDb = _context.Users.SingleOrDefault(t => t.Id == id);
+            var viewModel = new TraineeUserCoursesViewModel()
+            {
+                User = UserInDb,
+                Courses = _context.Courses.ToList()
+            };
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult AssignCourseTrainee(TraineeUserCoursesViewModel traineeCourse)
+        {
+            var newTraineeCourse = new TraineeCourse()
+            {
+                TraineeId = traineeCourse.User.Id,
+                CourseId = traineeCourse.TraineeUser.CourseId,
+            };
+            var TraineeCourseInDb = _context.TraineeCourses.Add(newTraineeCourse);
+            var traineeUserObject = _context.TraineeUsers.SingleOrDefault(t => t.Id == TraineeCourseInDb.TraineeId);
+            var CourseObject = _context.Courses.SingleOrDefault(t => t.Id == TraineeCourseInDb.CourseId);
+            TraineeCourseInDb.TraineeName = traineeUserObject.UserName;
+            TraineeCourseInDb.CourseName = CourseObject.Name;
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainee");
+        }
 
     }
 }
