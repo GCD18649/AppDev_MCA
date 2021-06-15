@@ -281,7 +281,18 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListTrainer");
         }
-     
+        public ActionResult ListTrainee(string searchString)
+        {
+            var traineeInDb = _context.TraineeUsers.ToList();
+            if (!searchString.IsNullOrWhiteSpace())
+            {
+                traineeInDb = _context.TraineeUsers
+                .Where(m => m.FullName.Contains(searchString) || m.Telephone.Contains(searchString))
+                .ToList();
+            }
+            return View(traineeInDb);
+        }
+
 
     }
 }

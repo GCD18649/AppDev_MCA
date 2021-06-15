@@ -1,7 +1,44 @@
-﻿
+﻿@model IEnumerable<AppDev_MCA.Models.Category>
 @{
     ViewBag.Title = "ListCategory";
 }
+<h2>List Category</h2>
+<div class="form-group">
+    @Html.ActionLink("Back to Home", "Index", "Home",
+null,
+new { @class = "btn btn-primary" })
+</div>
+@using (Html.BeginForm("ListCategory", "TrainingStaffs", "POST"))
+{
+    <div class="form-group">
+        <label for="fname">Search by Category Name:</label><br>
+        @Html.TextBox("searchString", null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+}
+@Html.ActionLink("Create", "CreateCategory", "TrainingStaffs", null, new { @class = "btn btn-primary" })
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Action</th>
 
-<h2>ListCategory</h2>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    @Html.ActionLink("Details", "DetailCategory", "TrainingStaffs", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "EditCategory", "TrainingStaffs", new { id = item.Id }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Delete", "DeleteCategory", "TrainingStaffs", new { id = item.Id }, new { @class = "btn btn-primary" })
+                </td>
 
+            </tr>
+        }
+    </tbody>
+</table>
