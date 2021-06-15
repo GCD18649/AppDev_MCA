@@ -385,6 +385,15 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListTrainee");
         }
-
+        [HttpPost]
+        public ActionResult ChangeCourseTrainee(TraineeUserCoursesViewModel traineeCourse)
+        {
+            var traineeCourseInDb = _context.TraineeCourses.SingleOrDefault(t => t.Id == traineeCourse.TraineeUser.Id);
+            var courseInDb = _context.Courses.SingleOrDefault(t => t.Id == traineeCourse.TraineeUser.CourseId);
+            traineeCourseInDb.CourseId = traineeCourse.TraineeUser.CourseId;
+            traineeCourseInDb.CourseName = courseInDb.Name;
+            _context.SaveChanges();
+            return RedirectToAction("ListTrainee");
+        }
     }
 }
