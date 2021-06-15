@@ -395,5 +395,10 @@ namespace AppDev_MCA.Controllers
             _context.SaveChanges();
             return RedirectToAction("ListTrainee");
         }
+        public ActionResult ViewCourseAssignedTrainee(string id)
+        {
+            var traineeCourse = _context.TraineeCourses.Where(t => t.TraineeId == id).ToList();
+            return View(traineeCourse);
+        }
     }
 }
