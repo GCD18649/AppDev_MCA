@@ -292,6 +292,18 @@
     <Content Include="Views\TrainingStaffs\CreateCourse.cshtml" />
     <Content Include="Views\TrainingStaffs\EditCourse.cshtml" />
     <Content Include="Views\TrainingStaffs\ListTrainer.cshtml" />
+    <Content Include="Views\TrainingStaffs\ViewCourseAssignedTrainee.cshtml" />
+    <Content Include="Views\TrainingStaffs\ChangeCourseTrainee.cshtml" />
+    <Content Include="Views\TrainingStaffs\AssignCourseTrainee.cshtml" />
+    <Content Include="Views\TrainingStaffs\CreateTraineeAccount.cshtml" />
+    <Content Include="Views\TrainingStaffs\DetailTraineeProfile.cshtml" />
+    <Content Include="Views\TrainingStaffs\ListTrainee.cshtml" />
+    <Content Include="Views\TrainingStaffs\AssignCourse.cshtml" />
+    <Content Include="Views\TrainingStaffs\ViewCourseAssigned.cshtml" />
+    <Content Include="Views\TrainingStaffs\DetailProfileTrainer.cshtml" />
+    <Content Include="Views\TrainingStaffs\ManageAccount.cshtml" />
+    <Content Include="Views\TrainingStaffs\UpdateProfileTrainer.cshtml" />
+    <Content Include="Views\TrainingStaffs\ChangeCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
