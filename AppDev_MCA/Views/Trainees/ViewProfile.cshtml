@@ -1,7 +1,16 @@
-﻿
+﻿@model AppDev_MCA.Models.TraineeUser
 @{
     ViewBag.Title = "ViewProfile";
 }
 
-<h2>ViewProfile</h2>
+<h2>View Profile</h2>
+@Html.ActionLink("Back to Home", "Index", "Trainees",
+    null,
+    new { @class = "btn btn-primary" })
 
+<div class="form-group">
+    @Html.LabelFor(m => m.EmailAddress, new { @class = "col-md-2 control-label" })
+    <div>
+        @Html.DisplayFor(m => m.UserName)
+    </div>
+</div>
