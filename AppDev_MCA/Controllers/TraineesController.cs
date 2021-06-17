@@ -28,6 +28,45 @@ namespace AppDev_MCA.Controllers
         {
             return View();
         }
-        
+        public ActionResult ViewProfile()
+        {
+            var CurrentTraineeId = User.Identity.GetUserId();
+            var TraineeInDb = _context.TraineeUsers.SingleOrDefault(t => t.Id == CurrentTraineeId);
+            return View(TraineeInDb);
+        }
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(string password)
+        {
+            var CurrentTraineeId = User.Identity.GetUserId();
+            var TraineeInDb = _userManager.FindById(CurrentTraineeId);
+            string newPassword = password;
+            _userManager.RemovePassword(CurrentTraineeId);
+            _userManager.AddPassword(CurrentTraineeId, newPassword);
+            _userManager.Update(TraineeInDb);
+            return RedirectToAction("Index");
+        }
+        public ActionResult ViewCourse(string searchString)
+        {
+            var course = _context.Courses.Include(c => c.Category).ToList();
+            if (!searchString.IsNullOrWhiteSpace())
+            {
+                course = _context.Courses
+                .Where(c => c.Name.Contains(searchString) || c.Category.Name.Contains(searchString))
+                .Include(c => c.Category)
+                .ToList();
+            }
+            return View(course);
+        }
+        public ActionResult ViewAssignedCourse()
+        {
+            var CurrentTraineeId = User.Identity.GetUserId();
+            var traineeCourse = _context.TraineeCourses.Where(t => t.TraineeId == CurrentTraineeId).Include(c => c.Course.Category).ToList();
+            return View(traineeCourse);
+        }
     }
 }
