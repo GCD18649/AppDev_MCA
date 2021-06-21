@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<AppDev_MCA.Models.ApplicationUser>
-@{ 
-    ViewBag.Title = "ListTrainingStaff"; 
- }
+@{ ViewBag.Title = "ListTrainingStaff"; }
 
 <h2>List Training Staff</h2>
 
 <div class="form-group">
     @Html.ActionLink("Back to Home", "Index", "Home",
-                        null,
-                        new { @class = "btn btn-primary" })
+                            null,
+                            new { @class = "btn btn-primary" })
 </div>
 
-@Html.ActionLink("Create Training Staff account", "CreateTrainingStaff", "Admins", 
-                    null, 
+
+@Html.ActionLink("Create Training Staff account", "CreateTrainingStaff", "Admins",
+                    null,
                     new { @class = "btn btn-primary" })
 
 <table class="table table-bordered">
@@ -33,6 +32,7 @@
         @Html.ActionLink("Remove", "RemoveTrainingStaffAccount", "Admins", new { id = item.Id }, new { @class = "btn btn-primary" })
     </td>
 
-</tr>}
+</tr>
+}
     </tbody>
 </table>

@@ -18,7 +18,9 @@ namespace AppDev_MCA.Migrations
         protected override void Seed(AppDev_MCA.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
-
+            
+            CreateUser(context, "Admin@email.com", "123456");
+            AddUserToRole(context, "Admin@email.com", "ADMIN");
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
         }

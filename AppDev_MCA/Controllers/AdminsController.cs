@@ -41,7 +41,7 @@ namespace AppDev_MCA.Controllers
             return RedirectToAction("ListTrainingStaff");
         }
         [HttpGet]
-        public ActionResult CreaAteTrainingStaff()
+        public ActionResult CreateTrainingStaff()
         {
             return View();
         }
